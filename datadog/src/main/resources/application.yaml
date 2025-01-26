@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: datadog
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URI}
+      database: bank-account
+      auto-index-creation: true
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: metrics, health, info
+  datadog:
+    metrics:
+      export:
+        api-key: ${DATADOG_API_KEY}
+        application-key: ${DATADOG_APP_KEY}
+        step: 5s
+        uri: https://us5.datadoghq.com
