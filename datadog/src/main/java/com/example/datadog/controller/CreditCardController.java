@@ -33,7 +33,6 @@ public class CreditCardController {
     @Timed(value = "get.credit.cards", description = "Time taken to get credit cards")
     @GetMapping("/cards")
     public List<CardResponse> getCreditCards() throws InterruptedException {
-        log.info("Getting all credit cards v2");
         putMDC("get.credit.cards");
         metricsConfig.incrCounter("cards_requests", "endpoint", "get.credit.cards");
         Instant before = Instant.now();

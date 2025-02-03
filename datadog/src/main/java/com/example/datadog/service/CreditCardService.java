@@ -45,12 +45,9 @@ public class CreditCardService {
         Thread.sleep(ms);
 
         List<CardResponse> list = repository.findAll().stream().map(CreditCardModel::toResponse).toList();
-        log.info("All credit cards retrieved successfully");
+        log.info(append("TotalCards", list.size()), "All credit cards retrieved successfully");
         return list;
     }
-
-
-
 
 
 }

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
 
 @Component
 @Slf4j
@@ -15,7 +14,6 @@ public class MetricsHelper {
     private MeterRegistry registry;
 
     public void incrCounter(String metricName, String... tags) {
-        log.info("Incrementing counter: {}", metricName);
         Counter.builder(metricName)
                 .tags(tags)
                 .register(registry)
