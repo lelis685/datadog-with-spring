@@ -1,6 +1,7 @@
 version: '3.8'  # Specifies the Docker Compose file format version.
 
 services:
+
   spring-dockerized-app:
     build:
       context: .
@@ -9,3 +10,21 @@ services:
       - 8080:8080
     env_file:
         - .env
+
+
+  dd-agent:
+    image: gcr.io/datadoghq/agent:7
+    container_name: dd-agent
+    restart: always
+    environment:
+      - DD_API_KEY=${api_key}
+      - DD_SITE=us5.datadoghq.com
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+    ports:
+      - "8125:8125/udp"
+      - "8126:8126/tcp"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro

@@ -7,18 +7,12 @@ spring:
       database: bank-account
       auto-index-creation: true
 
+
 management:
-  endpoint:
-    metrics:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: metrics, health, info
-  datadog:
+  dogstatsd:
     metrics:
       export:
-        api-key: ${DATADOG_API_KEY}
-        application-key: ${DATADOG_APP_KEY}
-        step: 5s
-        uri: https://us5.datadoghq.com
+        enabled: true
+        tags:
+          env: local
+          app: datadog-metrics-cards

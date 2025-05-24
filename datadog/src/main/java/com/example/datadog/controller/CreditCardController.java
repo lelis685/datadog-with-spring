@@ -1,12 +1,10 @@
 package com.example.datadog.controller;
 
 
-import com.example.datadog.config.MetricsConfig;
 import com.example.datadog.config.MetricsHelper;
 import com.example.datadog.controller.data.CardRequest;
 import com.example.datadog.controller.data.CardResponse;
 import com.example.datadog.service.CreditCardService;
-import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,6 @@ public class CreditCardController {
     private MetricsHelper metricsConfig;
 
 
-    @Timed(value = "get.credit.cards", description = "Time taken to get credit cards")
     @GetMapping("/cards")
     public List<CardResponse> getCreditCards() throws InterruptedException {
         putMDC("get.credit.cards");
@@ -43,13 +40,12 @@ public class CreditCardController {
 
         Instant after = Instant.now();
         long delta = Duration.between(before, after).toMillis();
-        metricsConfig.setDistribution("cards_duration_ms", (int) delta, "endpoint", "save.credit.cards");
+        metricsConfig.setDistribution("cards_duration_ms", (int) delta, "endpoint", "get.credit.cards");
 
         return allCreditCards;
     }
 
 
-    @Timed(value = "save.credit.card", description = "Time taken to save credit card")
     @PostMapping("/cards")
     public void saveCreditCard(@RequestBody CardRequest cardRequest) throws InterruptedException {
         putMDC("save.credit.cards");
