@@ -9,6 +9,11 @@ spring:
 
 
 management:
+  statsd:
+    metrics:
+      export:
+        flavor: datadog
+        enabled: true
   dogstatsd:
     metrics:
       export:

@@ -55,6 +55,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-statsd</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.datadoghq</groupId>
